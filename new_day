@@ -1,0 +1,35 @@
+#!/usr/bin/bash
+
+if [ -z $JOURNAL_HOME ]
+then
+		echo "Set the JOURNAL_HOME environment variable."
+		exit 1
+fi
+createDirectory() {
+	if [ -d $1 ];
+		then
+				mkdir $1
+	fi
+}
+createDirectory $JOURNAL_HOME
+createDirectory $JOURNAL_HOME/daily
+year=$(date +%Y)
+createDirectory $JOURNAL_HOME/daily/$year
+
+month=$(date +%m)
+createDirectory $JOURNAL_HOME/daily/$year/$month
+
+last_journal=$(find $JOURNAL_HOME/daily -type f -printf '%T+ %p\n' | sort -r | head -1 | cut -d ' ' -f 2-)
+
+day=$(date +%d)
+
+if [ -z "$last_journal" ]
+then
+		echo "Creating new daily journal"
+		touch $(daily_journal)
+
+else
+		echo "Copying $last_journal for today's journal"
+		cp $last_journal $(daily_journal) 
+fi
+

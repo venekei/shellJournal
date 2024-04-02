@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+if [ -z $JOURNAL_HOME ]
+then
+		echo "Set the JOURNAL_HOME environment variable."
+		exit 1
+fi
+year=$(date +%Y)
+month=$(date +%m)
+day=$(date +%d)
+echo $JOURNAL_HOME/daily/$year/$month/$day.md

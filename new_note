@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+
+if [ -z "$1" ]
+then
+		echo  "Note is empty."
+fi
+echo -e "\t- $1" >> $(daily_journal)
